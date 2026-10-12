@@ -1,0 +1,1 @@
+import"./whole-pixels.CWBJwJQ5.js";var e=document.querySelector(`.cairn-flow`),t=e?.querySelector(`.cairn-flow__switch`);if(e&&t){let n=n=>{e.dataset.view=n;for(let e of t.querySelectorAll(`button`))e.setAttribute(`aria-pressed`,String(e.dataset.view===n))};t.hidden=!1,n(`map`),t.addEventListener(`click`,e=>{let t=e.target.closest(`button`);t?.dataset.view&&n(t.dataset.view)})}

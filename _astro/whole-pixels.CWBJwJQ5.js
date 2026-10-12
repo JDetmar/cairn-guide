@@ -1,0 +1,1 @@
+function e(){let e=window.devicePixelRatio||1,t=document.documentElement.style;t.setProperty(`--cairn-scale-1`,`${Math.max(1,Math.round(e))/e}px`),t.setProperty(`--cairn-scale-2`,`${Math.max(1,Math.round(2*e))/e}px`)}e(),window.addEventListener(`resize`,e);
