@@ -88,6 +88,7 @@ A sync you ask for from the menu says <a href="../../screens/notices/#not-at-hom
 <p>Below a threshold set per board, 3,500 mV on the recorder, the device skips the sync, and the notes wait on the card, whether it is the sync after a recording or one you chose from the menu.
 Below a lower threshold, 3,300 mV on the recorder, it also refuses new recordings, because running out of power in the middle of a write is worse than a missed note.
 Either way it shows <a href="../../screens/notices/#battery-low"><samp>Battery low</samp></a> and gives its cue, on the recorder one long blink of its light.
+A sync that would not have used WiFi anyway is not skipped for the battery: with no <code dir="auto">config.txt</code>, a sync you choose from the menu shows <samp>Config problem</samp> at any level, and after <samp>Key refused</samp> or <samp>Hub not found</samp> the automatic sync stays quiet as before.
 Below the first threshold a firmware update waits too; see <a href="../updating/">Updating the firmware</a>.
 If you start the next recording from the Tagging screen, the notice for the sync that press skipped waits until that recording is over.
 Both thresholds are a first guess, not yet measured on the device.
