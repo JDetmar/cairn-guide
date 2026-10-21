@@ -91,6 +91,8 @@ Leave the card in, and the device alone; on the recorder it takes about half a m
 Then the device restarts by itself into the new firmware, which checks itself on that first start: the card, <code dir="auto">config.txt</code>, the notes on the card, and that audio comes in, as it does for a recording.
 If all is well, it shows <a href="../../screens/notices/#updated"><samp>Updated</samp></a> and <samp>New firmware runs</samp>, and from then on that firmware stays.
 If the new firmware fails its check, or stops before it has finished, the device goes back to the old firmware by itself and shows <a href="../../screens/notices/#update-undone"><samp>Update undone</samp></a> and <samp>Old firmware runs</samp>.
+The new firmware also checks the firmware it would go back to, and goes back to it at once, with <samp>Update undone</samp>, when that firmware is older than 0.3.0: firmware from 0.3.0 on keeps what later firmware adds to the card and the device, and older firmware does not.
+To update a device that runs firmware older than 0.3.0, install 0.3.0 first, and then the newer file.
 Your notes are safe either way: an update never touches <code dir="auto">queue/</code> or <code dir="auto">poison/</code>, and a recording made on either firmware waits for the hub as usual.</p>
 <p>If you press <kbd>Record</kbd> during an install, the device stops the update and starts recording at once, and the update waits for the next time you wake the device with <kbd>Tag</kbd>.
 If the device had already finished writing the new firmware when you pressed, the update cannot stop: the device records all the same, and once the recording is over, with its tagging window and any sync after it, it restarts into the new firmware.
