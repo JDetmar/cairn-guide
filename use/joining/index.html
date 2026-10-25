@@ -83,13 +83,13 @@ Approve only a device you are holding: someone who sends you a code, or reads on
 </ol>
 <p>The device stays awake while it waits, and asks the hub every few seconds whether you have approved it.</p>
 <ul>
-<li>A press of <kbd>Tag</kbd> cancels the join, and the device goes back to idle.</li>
+<li>A press of <kbd>Tag</kbd> cancels the join: the device shows <a href="../../screens/states/syncing/">Syncing</a> until its request to the hub has stopped, and then goes back to idle.</li>
 <li>A press of <kbd>Record</kbd> cancels it and starts a recording at once, as it does during a sync.</li>
 <li>If a sync is running when you choose Join, the join starts once the sync ends.</li>
 </ul>
 <p>A code lasts 10 minutes.
 If no one approves it by then, the device shows <a href="../../screens/notices/#code-expired"><samp>Code expired</samp></a>, and you can choose Join again for a new one.
-If someone denies it on the hub, or the hub refuses the device, it shows <a href="../../screens/notices/#not-joined"><samp>Not joined</samp></a>.</p>
+If someone denies it on the hub, the hub refuses the device, or the device cannot reach the hub, it shows <a href="../../screens/notices/#not-joined"><samp>Not joined</samp></a>.</p>
 <p>On the smallest panels, a hub whose address is long gets a QR code of its page alone, and you type the code the screen shows.
 The hub’s operator sees a warning in the hub’s log when its address is that long.</p>
 <p>Once joined, the device keeps the name the hub gave it, your name, and the hub’s address in its own memory, and uses them in place of <code dir="auto">device_id</code> and <code dir="auto">hub_url</code> in <code dir="auto">config.txt</code>.
