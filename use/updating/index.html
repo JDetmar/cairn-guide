@@ -88,7 +88,7 @@ A low battery shows <samp>Battery low</samp>, and the update waits on the card f
 <p>While the device installs the update, the panel shows <a href="../../screens/states/updating/"><samp>Updating</samp></a> and <samp>Keep the card in</samp>.
 The bar under <samp>Updating</samp> fills a quarter at a time as the device writes the new firmware.
 Leave the card in, and the device alone; on the recorder it takes about half a minute, most of it writing the new firmware.
-Then the device restarts by itself into the new firmware, which checks itself on that first start: the card, <code dir="auto">config.txt</code>, the notes on the card, and that audio comes in, as it does for a recording.
+Then the device restarts by itself into the new firmware, which checks itself on that first start: the card, the settings, the notes on the card, and that audio comes in, as it does for a recording.
 If all is well, it shows <a href="../../screens/notices/#updated"><samp>Updated</samp></a> and <samp>New firmware runs</samp>, and from then on that firmware stays.
 If the new firmware fails its check, or stops before it has finished, the device goes back to the old firmware by itself and shows <a href="../../screens/notices/#update-undone"><samp>Update undone</samp></a> and <samp>Old firmware runs</samp>.
 The new firmware also checks the firmware it would go back to, and goes back to it at once, with <samp>Update undone</samp>, when that firmware is older than 0.3.0: firmware from 0.3.0 on keeps what later firmware adds to the card and the device, and older firmware does not.

@@ -75,7 +75,7 @@ The device keeps time with a battery-backed clock, and corrects it from the netw
 <p>If that clock ever loses power, the device still records.
 It notes how long after boot each recording was made, works out the real time once it is back on a network, and only then sends the note.
 Until then the note waits, and a sync may show <a href="../../screens/notices/#clock-not-set"><samp>Clock not set</samp></a>.</p>
-<p>The device learns the time from a time server, <code dir="auto">pool.ntp.org</code> unless <code dir="auto">ntp</code> in <code dir="auto">config.txt</code> names another.
+<p>The device learns the time from a time server, <code dir="auto">pool.ntp.org</code> unless the <code dir="auto">config.txt</code> you set it up with named another as <code dir="auto">ntp</code>.
 With an <code dir="auto">https://</code> hub that is the only way while the clock is unset, because the device cannot check the hub’s certificate without knowing the date.
 So if your network blocks the time server, each sync shows <samp>Clock not set</samp> and keeps your notes until one reaches it; set <code dir="auto">ntp</code> to a time server your network allows.</p>
 <p>That arithmetic only works while the device keeps power; sleep is fine, but a flat or removed battery is not.
