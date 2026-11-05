@@ -188,6 +188,7 @@ While the storage check has failed, it says the recordings’ storage cannot be 
 <li><strong>unpin it</strong>, which stamps it again from when it was kept, under their choice now, and asks first when that would delete it at once;</li>
 <li><strong>delete it now</strong>, which asks first.</li>
 </ul>
+<p>A missing recording can only be deleted, which asks first too: that clears the record that says it is kept, so <a href="#checking-them"><code dir="auto">integrity</code></a> stops reporting it.</p>
 <p>A deletion leaves a record that says the recording was deleted, when, and why, and then removes the copy.
 If removing the copy fails, the sweep removes it on its next pass.
 A deletion does not reach a copy the spool still holds for a delivery: that copy goes when it is released, as it always has, and is never played.</p>
@@ -195,10 +196,13 @@ A deletion does not reach a copy the spool still holds for a delivery: that copy
 <p>The hub sweeps the recordings once as it starts, and every hour after, as the hub acting for each person:</p>
 <ul>
 <li>it deletes each kept recording that is due and not pinned;</li>
-<li>it deletes a kept recording whose note is still not filed a day after it was kept;</li>
+<li>it deletes a kept recording whose note is still not filed a day after it was kept;
+once it has found a recording’s note filed, it records that and never checks that recording again;</li>
 <li>it removes each copy older than ten minutes whose record says deleted or not kept, as after a crash between a deletion’s two steps, or a restore of the recordings;</li>
 <li>it leaves a copy with no record at all, which <a href="#checking-them"><code dir="auto">integrity</code></a> reports and only <a href="#the-recordings-commands"><code dir="auto">recordings purge-unmatched</code></a> deletes.</li>
 </ul>
+<p>When it cannot sweep someone’s recordings, it logs why and goes on to the next person, and the <code dir="auto">recordings</code> health check reports Degraded until a pass sweeps everyone.
+If no pass finishes for two hours, the health check reports that too.</p>
 <div class="sl-heading-wrapper level-h2"><h2 id="when-keeping-fails">When keeping fails</h2><a class="sl-anchor-link" href="#when-keeping-fails"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “When keeping fails”</span></a></div>
 <p>The hub copies a recording just before it files the note, and reads the copy back to check it.
 It makes up to three tries within one deadline, 60 seconds for each 64 MiB of <code dir="auto">Cairn__MaxUploadBytes</code>, so 60 seconds at the default.
@@ -255,7 +259,7 @@ They exit 0 when done, 1 when refused, and 2 when the command line is wrong.</p>
 </tbody>
 </table>
 <p>Checking the hashes reads every kept copy in full, so <code dir="auto">integrity</code> takes longer the more is kept.</p>
-<p>The <code dir="auto">recordings</code> health check reports Degraded while the storage check has failed, while any recording was not kept in the last day, for want of room or as the copy failed, or while the volume cannot be listed; <a href="../health/#the-health-pages">The health pages</a> says more.</p>
+<p>The <code dir="auto">recordings</code> health check reports Degraded while the storage check has failed, while any recording was not kept in the last day, for want of room or as the copy failed, while the volume cannot be listed, while the sweep’s last pass could not sweep someone, or while the sweep has not finished a pass for two hours, and says when the sweep last finished; <a href="../health/#the-health-pages">The health pages</a> says more.</p>
 <div class="sl-heading-wrapper level-h2"><h2 id="restores-and-the-risk-they-bring">Restores, and the risk they bring</h2><a class="sl-anchor-link" href="#restores-and-the-risk-they-bring"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Restores, and the risk they bring”</span></a></div>
 <p>A deletion removes a recording from the volume, but not from the volume’s backups, which keep it until they expire.
 The records of deleted recordings stay in the database, so a restore of the recordings alone never serves a deleted recording again: the sweep removes each such copy.</p>

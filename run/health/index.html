@@ -102,7 +102,8 @@
 <ul>
 <li><code dir="auto">stt</code> asks the speech-to-text server for <code dir="auto">GET /health</code>, and gives it three seconds.</li>
 <li><code dir="auto">failures</code> counts the transcriptions that failed and wait to be retried, and the deliveries that are dead.</li>
-<li><code dir="auto">recordings</code>, which is there only while <a href="../recordings/">keeping recordings</a> is enabled or <code dir="auto">Cairn__Recordings__Dir</code> is set, reports degraded while the recordings’ storage check has failed, keeping is enabled with no folder set included; while any recording was not kept in the last day, for want of room or as the copy failed; while a call to the recordings’ volume that missed its deadline is still running; or while the volume cannot be listed within five seconds.
+<li><code dir="auto">recordings</code>, which is there only while <a href="../recordings/">keeping recordings</a> is enabled or <code dir="auto">Cairn__Recordings__Dir</code> is set, reports degraded while the recordings’ storage check has failed, keeping is enabled with no folder set included; while any recording was not kept in the last day, for want of room or as the copy failed; while a call to the recordings’ volume that missed its deadline is still running; while the volume cannot be listed within five seconds; while the <a href="../recordings/#the-sweep">sweep</a> could not sweep one or more people’s recordings in its last pass; or while the sweep has not finished a pass for two hours, counted from when the hub started or from its last finished pass, whichever is later.
+Unless the storage check has failed, when it says that alone, its description says when the sweep last finished a pass, in UTC, or that it has not run yet.
 It reports counts, never a note or a person.</li>
 </ul>
 <p><code dir="auto">/healthz</code> carries no stack trace and nothing from a request or a note.
