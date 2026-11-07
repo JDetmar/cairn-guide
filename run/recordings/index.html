@@ -130,11 +130,11 @@ Choosing don’t keep, once confirmed, deletes every kept recording of theirs th
 <p>While keeping is off and the person has no recordings, the tab says keeping recordings is not set up on this hub.
 While the storage check has failed, it says the recordings’ storage cannot be reached, and offers no choice.</p>
 <div class="sl-heading-wrapper level-h2"><h2 id="on-the-notes-page">On the note’s page</h2><a class="sl-anchor-link" href="#on-the-notes-page"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “On the note’s page”</span></a></div>
-<p>The note’s page shows a player while its recording is kept and the copy is there, and its Audio fact says which of these holds:</p>
+<p>The note’s page has a Recording section, with a player while its recording is kept and the copy is there, and a sentence that says which of these holds:</p>
 <table>
 <thead>
 <tr>
-<th>The Audio fact</th>
+<th>What it says</th>
 <th>When</th>
 </tr>
 </thead>
@@ -144,27 +144,27 @@ While the storage check has failed, it says the recordings’ storage cannot be 
 <td>Kept, under a number of days</td>
 </tr>
 <tr>
-<td>Kept</td>
+<td>Kept, with no date set to delete it</td>
 <td>Kept, under keep</td>
 </tr>
 <tr>
-<td>Kept until you delete it</td>
+<td>Pinned: kept until you delete it</td>
 <td>Pinned</td>
 </tr>
 <tr>
-<td>Not kept, as chosen then</td>
+<td>Not kept: when this note arrived, your recordings were set to keep none</td>
 <td>The owner’s choice, when it was filed, was not to keep it</td>
 </tr>
 <tr>
-<td>Not kept: the recordings’ storage was full</td>
+<td>Not kept: the hub’s storage for recordings was full when this note arrived</td>
 <td>The volume was full</td>
 </tr>
 <tr>
-<td>Not kept: the copy failed</td>
+<td>Not kept: the hub could not make its copy when this note arrived</td>
 <td>Every try at copying it failed</td>
 </tr>
 <tr>
-<td>Not kept: filed before the hub kept recordings</td>
+<td>Not kept: this note arrived before the hub kept recordings</td>
 <td>Filed while keeping was off, so never offered</td>
 </tr>
 <tr>
@@ -172,16 +172,17 @@ While the storage check has failed, it says the recordings’ storage cannot be 
 <td>Deleted, by its owner, the sweep, or the purge</td>
 </tr>
 <tr>
-<td>Missing: the hub’s record says kept, but the copy is gone</td>
+<td>Missing: the hub’s record says it is kept, but the copy is gone</td>
 <td>Its copy is not on the volume</td>
 </tr>
 <tr>
-<td>Cannot be reached: the recordings’ storage is not available</td>
+<td>Cannot be reached right now: the hub’s storage for recordings is not available</td>
 <td>The storage check failed</td>
 </tr>
 </tbody>
 </table>
-<p>A second line, “Also held in the spool until every delivery has the note”, shows while the spool still holds the note’s recording.</p>
+<p>When the owner’s choice decided it, the sentence links to the Recordings tab, “Change what is kept”.
+A hint, “Until every route has the note, the hub also holds its upload to send it”, shows while the spool still holds the note’s recording.</p>
 <p>A kept recording’s owner can:</p>
 <ul>
 <li><strong>pin it</strong>, which keeps it until they delete it, whatever they choose later;</li>
