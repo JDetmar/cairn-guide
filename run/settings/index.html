@@ -313,7 +313,38 @@ They can be raised, never turned off, and a day of bytes may be no less than one
 </tbody>
 </table>
 <div class="sl-heading-wrapper level-h2"><h2 id="telemetry">Telemetry</h2><a class="sl-anchor-link" href="#telemetry"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Telemetry”</span></a></div>
-<p>The hub exports traces, metrics, and logs over OpenTelemetry when <code dir="auto">OTEL_EXPORTER_OTLP_ENDPOINT</code> is set, and nothing when it is not.</p>
+<p>The hub exports traces, metrics, and logs over OpenTelemetry when <code dir="auto">OTEL_EXPORTER_OTLP_ENDPOINT</code> is set, each signal alone when its own endpoint, such as <code dir="auto">OTEL_EXPORTER_OTLP_METRICS_ENDPOINT</code>, is set, and nothing when none is; <a href="../health/#telemetry">Telemetry</a> says how.</p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Default</th>
+<th>What it is</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">Cairn__Health__PeriodSeconds</code></td>
+<td><code dir="auto">60</code></td>
+<td>How often, in seconds, each health check is run for its metrics, but <code dir="auto">failures</code>, <code dir="auto">recordings</code>, and <code dir="auto">stt</code></td>
+</tr>
+<tr>
+<td><code dir="auto">Cairn__Health__TimeoutSeconds</code></td>
+<td><code dir="auto">30</code></td>
+<td>How long, in seconds, a run of each health check may take</td>
+</tr>
+<tr>
+<td><code dir="auto">Cairn__Health__Checks__&lt;check&gt;__PeriodSeconds</code></td>
+<td><code dir="auto">300</code> for <code dir="auto">failures</code>, <code dir="auto">recordings</code>, and <code dir="auto">stt</code></td>
+<td>How often that check is run</td>
+</tr>
+<tr>
+<td><code dir="auto">Cairn__Health__Checks__&lt;check&gt;__TimeoutSeconds</code></td>
+<td>None</td>
+<td>How long a run of that check may take</td>
+</tr>
+</tbody>
+</table>
 <div class="sl-heading-wrapper level-h2"><h2 id="settings-that-are-no-longer-read">Settings that are no longer read</h2><a class="sl-anchor-link" href="#settings-that-are-no-longer-read"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Settings that are no longer read”</span></a></div>
 <p>An older hub read <code dir="auto">Cairn__RoutesFile</code>, one routes file for everyone; the hub warns as it starts while it is still set, since the routes it names are not used.
 <code dir="auto">Cairn__Readers__&lt;name&gt;</code>, <code dir="auto">Cairn__ReaderKeys</code>, and <code dir="auto">Cairn__Devices</code> are ignored: people make <a href="../commands/#reader-tokens">reader tokens</a> instead, and each device signs with a key of its own.</p>
