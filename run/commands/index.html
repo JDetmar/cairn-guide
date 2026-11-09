@@ -107,15 +107,15 @@ Run a command where the hub runs, with the same settings, such as with <code dir
 </tr>
 <tr>
 <td><code dir="auto">integrity [--owner &lt;name&gt;]</code></td>
-<td>Checks that every archived note whose tag is sent reached its owner’s webhook, and each person’s kept recordings; exits 1 when it finds an issue; see <a href="../health/#the-integrity-check">The integrity check</a></td>
+<td>Checks that no note’s delivery was given up on or has waited too long, and each person’s kept recordings; exits 1 when it finds an issue; see <a href="../health/#the-integrity-check">The integrity check</a></td>
 </tr>
 <tr>
-<td><code dir="auto">replay --owner &lt;name&gt; --destination webhook [--since &lt;time&gt;] [--dry-run] [--force]</code></td>
-<td>Delivers the person’s archived notes to their webhook again; see <a href="../backups/#delivering-again">Delivering again</a></td>
+<td><code dir="auto">send-notes --owner &lt;name&gt; [--since &lt;time&gt;] [--dry-run]</code></td>
+<td>Sends the person’s notes under a sent tag, and any given up on, to their webhook again; see <a href="../backups/#delivering-again">Delivering again</a></td>
 </tr>
 <tr>
 <td><code dir="auto">project</code></td>
-<td>Runs one delivery pass, and exits 1 if a delivery is dead</td>
+<td>Runs one delivery pass, and exits 1 if a delivery was given up on</td>
 </tr>
 <tr>
 <td><code dir="auto">ingest-file &lt;wav&gt; --owner &lt;name&gt; --tag &lt;tag&gt;</code></td>
