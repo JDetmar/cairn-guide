@@ -76,7 +76,7 @@ Each person has at most one webhook, and each of their tags is either sent to it
 <div class="sl-heading-wrapper level-h2"><h2 id="each-persons-routes-file">Each person’s routes file</h2><a class="sl-anchor-link" href="#each-persons-routes-file"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Each person’s routes file”</span></a></div>
 <p>Each person’s routes are a file of their own, <code dir="auto">&lt;user id&gt;.yaml</code>, in the routes folder, <code dir="auto">/config/routes</code> in the image.
 You write it; people cannot edit their routes on the hub’s pages yet.</p>
-<p>A person’s user id is on the hub’s Routes page, under Settings, once they sign in, beside a read-only list of their tags, each sent or kept, and their webhook’s host, never its path or its secret, and <a href="../commands/"><code dir="auto">admin list</code></a> prints everyone’s.
+<p>A person’s user id is on the hub’s Routes page, under Settings, once they sign in, beside a read-only list of their tags, each sent or kept, and their webhook’s host, never its path, and <a href="../commands/"><code dir="auto">admin list</code></a> prints everyone’s.
 The id never changes and is never a name, so renaming someone leaves their file where it is.</p>
 <p>The hub reads a person’s file each time it routes one of their notes, so an edit takes effect at once, with no restart.
 Sending a tag, or adding a webhook, sends the notes filed under that tag from then on; <a href="../backups/#delivering-again"><code dir="auto">send-notes</code></a> sends the ones filed before.</p>
@@ -122,10 +122,12 @@ Receivers should use <code dir="auto">Idempotency-Key</code> to ignore an event 
 <p>Each person’s secret is derived from the hub’s webhook key and their user id, never stored, so you make no secret for anyone and hand none out.
 Set the key in the hub’s secrets, never in <code dir="auto">appsettings.json</code>, as <code dir="auto">Cairn__WebhookKey</code>: exactly 64 hex digits, such as <code dir="auto">openssl rand -hex 32</code> makes.
 The hub refuses to start with a key of any other form, and with none it sends no secret and says so in its log as it starts.</p>
-<p>Run <a href="../commands/#webhook-secrets"><code dir="auto">webhook-secret --owner &lt;name&gt;</code></a> to print a person’s secret, for setting up a receiver for them.
+<p>Each person sees their own secret on their Routes page, once they confirm it is them, and can make a new one there, which stops the old one at once.
+Run <a href="../commands/#webhook-secrets"><code dir="auto">webhook-secret --owner &lt;name&gt;</code></a> to print a person’s secret, for setting up a receiver for them.
 Paste it into the receiver as the credential it checks, such as an n8n webhook’s Header Auth, as the header <code dir="auto">Authorization</code> with the value <code dir="auto">Bearer &lt;secret&gt;</code>.
 A receiver that does not check it accepts anyone’s requests, secret or not.</p>
-<p>Changing the key changes every person’s secret at once, so do it only for a key that leaked, and paste each new secret into its receiver.
+<p>A secret that leaked is rotated alone, from its person’s Routes page or with <code dir="auto">webhook-secret --owner &lt;name&gt; --rotate</code>.
+Changing the key changes every person’s secret at once, so do it only for a key that leaked, and paste each new secret into its receiver.
 A routes file that still sets <code dir="auto">secret_env</code>, from before the hub derived secrets, is refused with a message that says so; remove the line.</p>
 <p>A receiver that only speaks MCP, or needs an OAuth sign-in of its own, is reached the same way: point the webhook at a flow, in n8n for example, that holds the sign-in.
 The hub learns no OAuth flows for receivers.</p>
