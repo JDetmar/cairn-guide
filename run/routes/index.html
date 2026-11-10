@@ -126,7 +126,10 @@ The hub refuses to start with a key of any other form, and with none it sends no
 <p>Each person sees their own secret on their Routes page, once they confirm it is them, and can make a new one there, which stops the old one at once.
 Run <a href="../commands/#webhook-secrets"><code dir="auto">webhook-secret --owner &lt;name&gt;</code></a> to print a person’s secret, for setting up a receiver for them.
 Paste it into the receiver as the credential it checks, such as an n8n webhook’s Header Auth, as the header <code dir="auto">Authorization</code> with the value <code dir="auto">Bearer &lt;secret&gt;</code>.
-A receiver that does not check it accepts anyone’s requests, secret or not.</p>
+A receiver that does not check it accepts anyone’s requests, secret or not.
+The Routes page has a button that tests whether a person’s receiver checks it: the hub sends the webhook one request with a wrong secret, an empty JSON object as its body, and <code dir="auto">X-Cairn-Test: 1</code>, which is no event, at most once a minute for each person.
+An answer of <code dir="auto">401</code> or <code dir="auto">403</code> says the receiver checks the secret, a <code dir="auto">2xx</code> warns that it does not, and anything else is shown as it came.
+A receiver that logs what it is sent can drop a request that carries <code dir="auto">X-Cairn-Test</code>.</p>
 <p>A secret that leaked is rotated alone, from its person’s Routes page or with <code dir="auto">webhook-secret --owner &lt;name&gt; --rotate</code>.
 Changing the key changes every person’s secret at once, so do it only for a key that leaked, and paste each new secret into its receiver.
 A routes file that still sets <code dir="auto">secret_env</code>, from before the hub derived secrets, is refused with a message that says so; remove the line.</p>
