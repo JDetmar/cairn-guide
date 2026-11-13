@@ -138,6 +138,10 @@ Run a command where the hub runs, with the same settings, such as with <code dir
 <td><code dir="auto">recordings purge-unmatched [--dry-run]</code></td>
 <td>Deletes each copy of a recording that has no record in the database; see <a href="../recordings/#the-recordings-commands">Keeping recordings</a></td>
 </tr>
+<tr>
+<td><code dir="auto">titles backfill --owner &lt;name&gt; [--since &lt;time&gt;] [--dry-run]</code></td>
+<td>Titles the person’s notes filed with no title, sending nothing; see <a href="../titles/#titling-notes-filed-before">Titling notes filed before</a></td>
+</tr>
 </tbody>
 </table>
 <p><code dir="auto">ingest-file</code> also takes <code dir="auto">--device &lt;id&gt;</code>, <code dir="auto">--captured-at &lt;time&gt;</code>, <code dir="auto">--seq &lt;n&gt;</code>, and <code dir="auto">--no-project</code>, which files the note without delivering it.
