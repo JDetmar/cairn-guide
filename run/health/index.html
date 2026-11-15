@@ -95,7 +95,7 @@
 <tr>
 <td><code dir="auto">/healthz</code></td>
 <td>Every check</td>
-<td>Each check’s name, status, how long it took, and a description, as JSON; <code dir="auto">200</code> when healthy or degraded, <code dir="auto">503</code> when unhealthy</td>
+<td>The build the hub runs, and each check’s name, status, how long it took, and a description, as JSON; <code dir="auto">200</code> when healthy or degraded, <code dir="auto">503</code> when unhealthy</td>
 </tr>
 </tbody>
 </table>
@@ -117,6 +117,8 @@ An engine that is down or answers badly does not make it degraded; <a href="../t
 <p><code dir="auto">recordings</code>, <code dir="auto">quiet-devices</code>, <code dir="auto">battery-warnings</code>, and <code dir="auto">titles</code> each count from when the hub started or from their worker’s last finished pass, whichever is later, and each one’s description says when the worker last finished a pass, in UTC, or that it has not run yet, and when a failed pass failed.
 The sweep and the title worker make a pass as the hub starts, and the other two only after their first interval, so until then they say they have not run yet, which is healthy.</p>
 <p><code dir="auto">/healthz</code> carries no stack trace and nothing from a request or a note.
+Its <code dir="auto">build</code> gives the commit the hub was built from and when, so you can tell which build is live; an admin sees the same at the foot of the Admin pages, and the hub logs it as it starts.
+An image built without them, as by hand with no build arguments, gives <code dir="auto">null</code> for each.
 To read it on Kubernetes:</p>
 <div class="expressive-code"><link rel="stylesheet" href="/cairn-guide/_astro/ec.w36nc.css"><script type="module" src="/cairn-guide/_astro/ec.0vx5m.js"></script><figure class="frame is-terminal not-content"><figcaption class="header"><span class="title"></span><span class="sr-only">Terminal window</span></figcaption><pre data-language="bash"><code><div class="ec-line"><div class="code"><span style="--0:#82AAFF;--1:#3B61B0">kubectl</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#ECC48D;--1:#3B61B0">port-forward</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#ECC48D;--1:#3B61B0">&lt;the</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#ECC48D;--1:#3B61B0">hub</span><span style="--0:#D9F5DD;--1:#111111">'</span><span style="--0:#ECC48D;--1:#984E4D">s pod&gt; 8081 &amp;</span></div></div><div class="ec-line"><div class="code"><span style="--0:#ECC48D;--1:#984E4D">curl http://localhost:8081/healthz</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="kubectl port-forward <the hub&#x27;s pod> 8081 &amp;curl http://localhost:8081/healthz"><div></div></button></div></figure></div>
 <p>Devices use <code dir="auto">GET /v1/health</code> on the public port, which answers as <code dir="auto">/readyz</code> does, with no detail; a device that cannot reach a time server also reads the time from its <code dir="auto">Date</code> header.</p>
