@@ -103,7 +103,7 @@ This hub refuses that file as it refuses any it cannot read, so rewrite it as <c
 <code dir="auto">url</code> is the note’s page on the hub.
 <code dir="auto">recording.state</code> is <code dir="auto">never_offered</code>, <code dir="auto">kept</code>, <code dir="auto">not_kept</code>, with a <code dir="auto">reason</code> of <code dir="auto">chosen</code>, <code dir="auto">no_room</code>, or <code dir="auto">copy_failed</code>, or <code dir="auto">deleted</code>.
 <code dir="auto">title</code> is the note’s <a href="../../use/titles/">title</a>, or null, and <code dir="auto">title_engine</code> names the engine, model, and prompt that made it, such as <code dir="auto">haiku/claude-haiku-5-5/titles-1</code>, or is null when the note has no title or its owner wrote it.
-<code dir="auto">recording.url</code> is always null for now.</p>
+<code dir="auto">recording.url</code> is where a reader token its owner allowed to download recordings downloads the recording, while it is kept, and null in every other state; <a href="../recordings/#downloading-a-recording">Downloading a recording</a> says how.</p>
 <p>An event’s <code dir="auto">type</code> says what the webhook should do with the note:</p>
 <ul>
 <li><code dir="auto">note.filed</code>: a note it does not have yet; <code dir="auto">previous_tag</code> is null.</li>

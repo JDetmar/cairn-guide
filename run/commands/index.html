@@ -147,8 +147,10 @@ Run a command where the hub runs, with the same settings, such as with <code dir
 <p><code dir="auto">ingest-file</code> also takes <code dir="auto">--device &lt;id&gt;</code>, <code dir="auto">--captured-at &lt;time&gt;</code>, <code dir="auto">--seq &lt;n&gt;</code>, and <code dir="auto">--no-project</code>, which files the note without delivering it.
 While keeping recordings is on, <code dir="auto">ingest-file</code> keeps each recording as an upload’s is kept, so the recordings’ volume must be mounted where it runs, as it is in the hub’s own container.</p>
 <div class="sl-heading-wrapper level-h2"><h2 id="reader-tokens">Reader tokens</h2><a class="sl-anchor-link" href="#reader-tokens"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Reader tokens”</span></a></div>
-<p>A reader token reads one person’s notes back, and nothing else, for a script or an app.
+<p>A reader token reads one person’s notes back, and nothing else, for a script or an app, and downloads their recordings when its owner allowed it to.
 People make their own at <code dir="auto">/account/reader-tokens</code>, which shows each token once, lists each by name with when it last read, and revokes it.
+When they make one, they may tick “It may download your recordings”, which lets a script download the recordings of their notes that are under sent tags; <a href="../recordings/#downloading-a-recording">Downloading a recording</a> says what that allows.
+It starts unticked and never changes, and a token made on the command line never has it.
 For a script that no one can sign in for, make one from the command line:</p>
 <div class="expressive-code"><link rel="stylesheet" href="/cairn-guide/_astro/ec.w36nc.css"><script type="module" src="/cairn-guide/_astro/ec.0vx5m.js"></script><figure class="frame is-terminal not-content"><figcaption class="header"><span class="title"></span><span class="sr-only">Terminal window</span></figcaption><pre data-language="bash"><code><div class="ec-line"><div class="code"><span style="--0:#82AAFF;--1:#3B61B0">dotnet</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#ECC48D;--1:#3B61B0">Cairn.Hub.dll</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#ECC48D;--1:#3B61B0">reader-token</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#ECC48D;--1:#3B61B0">add</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#82AAFF;--1:#3B61B0">--owner</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#ECC48D;--1:#3B61B0">Kim</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#82AAFF;--1:#3B61B0">--name</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#ECC48D;--1:#3B61B0">laptop</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="dotnet Cairn.Hub.dll reader-token add --owner Kim --name laptop"><div></div></button></div></figure></div>
 <p>It prints the token once, alone on its output.
@@ -168,12 +170,16 @@ The hub keeps only a hash of each token, and a person may have at most 20 that a
 <td>One of the token owner’s notes, with its transcript and its deliveries; another person’s note, or none, is <code dir="auto">404</code></td>
 </tr>
 <tr>
+<td><code dir="auto">GET /v1/events/{id}/audio</code></td>
+<td>The recording of one of the token owner’s notes, only for a token its owner allowed to download, and only for a note under a sent tag; at most 120 an hour, and every other refusal is <code dir="auto">404</code></td>
+</tr>
+<tr>
 <td><code dir="auto">GET /v1/status</code></td>
 <td>Counts and devices, as <a href="../health/#status-for-a-script">Status, for a script</a> says</td>
 </tr>
 </tbody>
 </table>
-<p>Without a token, or with one that is revoked, both answer <code dir="auto">401</code>, whether or not the note exists.</p>
+<p>Without a token, or with one that is revoked, each answers <code dir="auto">401</code>, whether or not the note exists.</p>
 <div class="sl-heading-wrapper level-h2"><h2 id="webhook-secrets">Webhook secrets</h2><a class="sl-anchor-link" href="#webhook-secrets"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Webhook secrets”</span></a></div>
 <p>Once the hub has its webhook key, as <a href="../routes/#the-webhook-key">Routes and the webhook</a> says, each person’s webhook carries a secret of their own, which the hub derives and never stores.
 To set up a receiver for someone, print theirs:</p>
